@@ -1,10 +1,25 @@
+# Entorno virtual y archivos temporales
 .venv/
 __pycache__/
 .pytest_cache/
-*.py[cod]
-data/raw/*
-!data/raw/.gitkeep
-models/*
-!models/.gitkeep
-reports/*
-!reports/.gitkeep
+.ipynb_checkpoints/
+*.pyc
+.env
+
+# Datos originales de MovieLens
+data/raw/
+
+# Modelos generados
+*.pkl
+*.joblib
+
+# Archivos auxiliares
+*.zip
+*.html
+*_files/
+
+# Carpeta duplicada
+/INF8239_U03_LAB09/
+
+# Configuraciones locales
+.vscode/

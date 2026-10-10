@@ -1,0 +1,17 @@
+{
+  "descripcion": "Proxy: Top-10 por cantidad y media, sin filtrar vistos, evaluado sobre el ítem retenido de cada usuario evaluable.",
+  "hit_rate_at_10": 0.020442930153321975,
+  "catalog_coverage": 0.0010308215647871354,
+  "top10": [
+    "Forrest Gump (1994)",
+    "Shawshank Redemption, The (1994)",
+    "Pulp Fiction (1994)",
+    "Matrix, The (1999)",
+    "Silence of the Lambs, The (1991)",
+    "Star Wars: Episode IV - A New Hope (1977)",
+    "Braveheart (1995)",
+    "Jurassic Park (1993)",
+    "Terminator 2: Judgment Day (1991)",
+    "Fight Club (1999)"
+  ]
+}

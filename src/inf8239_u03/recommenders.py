@@ -18,7 +18,7 @@ def weighted_popularity(ratings: pd.DataFrame, movies: pd.DataFrame, quantile: f
 
 
 class ContentRecommender:
-    def fit(self, movies: pd.DataFrame) -> "ContentRecommender":
+    def fit(self, movies: pd.DataFrame) -> ContentRecommender:
         self.movies = movies.reset_index(drop=True).copy()
         self.movies["genres_text"] = self.movies["genres"].str.replace("|", " ", regex=False)
         self.vectorizer = TfidfVectorizer()
@@ -36,6 +36,15 @@ class ContentRecommender:
         result["content_score"] = scores[order]
         return result.reset_index(drop=True)
 
+    def recommend_or_popular(self, title: str, popular: pd.DataFrame, k: int = 10) -> pd.DataFrame:
+        """Recomienda por contenido; si el título no existe, devuelve el Top-k de popularidad."""
+        try:
+            return self.recommend(title, k).assign(source="contenido")
+        except KeyError:
+            fallback = popular.reset_index()[["movieId", "title", "genres"]].head(k).copy()
+            fallback["content_score"] = np.nan
+            return fallback.assign(source="popularidad")
+
 
 class MatrixFactorization:
     def __init__(self, factors: int = 20, learning_rate: float = 0.01, regularization: float = 0.05, seed: int = 42):
@@ -44,7 +53,7 @@ class MatrixFactorization:
         self.regularization = regularization
         self.seed = seed
 
-    def fit(self, ratings: pd.DataFrame, epochs: int = 12) -> "MatrixFactorization":
+    def fit(self, ratings: pd.DataFrame, epochs: int = 12) -> MatrixFactorization:
         self.users = sorted(ratings["userId"].unique())
         self.items = sorted(ratings["movieId"].unique())
         self.user_index = {value: index for index, value in enumerate(self.users)}
